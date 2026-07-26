@@ -1,24 +1,9 @@
 import { defineStore } from 'pinia'
+import { getTasks } from '@/utils/storage'
 
 export const useTaskStore = defineStore('task', {
  state: () => ({
-  tasks: JSON.parse(localStorage.getItem('tasks')) || [
-    {
-      id: 1,
-      title: '学习 Vue',
-      completed: false
-    },
-    {
-      id: 2,
-      title: '完成项目',
-      completed: true
-    },
-    {
-      id: 3,
-      title: '学习 Pinia',
-      completed: false
-    }
-  ],
+  tasks: getTasks(),
   currentFilter: 'all'
 }), 
 
