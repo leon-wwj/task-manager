@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
-import { useTaskStore } from './stores/task'
+import { useTaskStore } from './stores/Task'
 import { saveTasks } from './utils/storage'
 
 import App from './App.vue'
