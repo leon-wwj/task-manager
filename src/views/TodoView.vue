@@ -1,46 +1,57 @@
 <template>
   <div>
     <h1>任务管理系统</h1>
-    <p>已完成：{{ taskStore.completedCount }}</p>
+    <p>已完成：{{ todoStore.completedCount }}</p>
     <TodoInput @addTask="handleAddTask"/>
-    <TodoList :tasks="taskStore.filteredTasks" />
+    <TodoList :tasks="todoStore.filteredTasks"
+      @toggle="todoStore.toggleTask"
+      @delete="todoStore.deleteTask"
+      @update="handleUpdate" />
  <div>
 <button 
-  :class="{ active: taskStore.currentFilter === 'all' }"
-  @click="taskStore.changeFilter('all')"
+  :class="{ active: todoStore.currentFilter === 'all' }"
+  @click="todoStore.changeFilter('all')"
 >
   全部
 </button>
 
 <button 
-  :class="{ active: taskStore.currentFilter === 'completed' }"
-  @click="taskStore.changeFilter('completed')"
+  :class="{ active: todoStore.currentFilter === 'completed' }"
+  @click="todoStore.changeFilter('completed')"
 >
   已完成
 </button>
 
 <button 
-  :class="{ active: taskStore.currentFilter === 'uncompleted' }"
-  @click="taskStore.changeFilter('uncompleted')"
+  :class="{ active: todoStore.currentFilter === 'uncompleted' }"
+  @click="todoStore.changeFilter('uncompleted')"
 >
   未完成
 </button>
-<button @click="taskStore.clearCompletedTasks()">清除已完成任务</button>
+<button @click="todoStore.clearCompletedTasks()">清除已完成任务</button>
   </div>
   </div>
 </template>
 
 <script setup>
-import { useTaskStore } from '@/stores/Task.js'
+import { useTodoStore } from '@/stores/todo.js'
 import TodoInput from '@/components/TodoInput.vue'
 import TodoList from '@/components/TodoList.vue'
 
 
-const taskStore = useTaskStore()
+const todoStore = useTodoStore()
 
 function handleAddTask(title){
 
-  taskStore.addTask(title)
+  todoStore.addTask(title)
+
+}
+function handleUpdate(id,newTitle){
+
+  todoStore.updateTask(
+    id,
+    newTitle
+  )
 
 }
 

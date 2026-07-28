@@ -1,9 +1,9 @@
 import { defaultTasks } from '@/mock/tasks'
+import { TODO_KEY } from '@/constants'
 
-const TASK_KEY = 'tasks'
 export function getTasks(){
 
- const tasks = localStorage.getItem(TASK_KEY)
+ const tasks = localStorage.getItem(TODO_KEY)
 
  return tasks
  ? JSON.parse(tasks)
@@ -15,8 +15,8 @@ export function getTasks(){
 export function saveTasks(tasks){
 
  localStorage.setItem(
-  TASK_KEY,
+  TODO_KEY,
   JSON.stringify(tasks)
- )
+)
 
 }

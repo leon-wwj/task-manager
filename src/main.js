@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
-import { useTaskStore } from './stores/Task'
-import { saveTasks } from './utils/storage'
+import { useTodoStore } from './stores/todo'
+import { saveTodos } from '@/api/todoApi'
 
 import App from './App.vue'
 import router from './router'
@@ -12,11 +12,11 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 
-const taskStore = useTaskStore()
+const todoStore = useTodoStore()
 
-taskStore.$subscribe((_,state)=>{
+todoStore.$subscribe((_,state)=>{
 
-  saveTasks(state.tasks)
+  saveTodos(state.tasks)
 
 })
 app.mount('#app')

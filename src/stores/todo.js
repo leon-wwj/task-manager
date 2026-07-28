@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
-import { getTasks } from '@/utils/storage'
+import { fetchTodos } from '@/api/todoApi'
 
-export const useTaskStore = defineStore('task', {
+export const useTodoStore = defineStore('todo', {
  state: () => ({
-  tasks: getTasks(),
+  tasks: fetchTodos(),
   currentFilter: 'all'
 }), 
 

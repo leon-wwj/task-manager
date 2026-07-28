@@ -1,14 +1,14 @@
 <template>
-  <div @click="!isEditing && emit('toggle')" class="task-item">
-    <button @click.stop="emit('delete')">[删除]</button>
+  <div @click="!isEditing && emit('toggle',task.id)" class="task-item">
+    <button @click.stop="emit('delete',task.id)">[删除]</button>
     <button @click.stop="startEdit">编辑</button>
     <input 
     v-if="isEditing"
     v-model="editText"/>
     <button @click.stop="saveEdit">保存</button>
-    <span v-if="completed">✅</span>
+    <span v-if="task.completed">✅</span>
     <span v-else>❌</span>
-    {{ title }}
+    {{ task.title }}
   </div>
 
 </template>
@@ -16,8 +16,10 @@
 <script setup>
 import { ref } from 'vue'
  const props = defineProps({
-  title: String,
-  completed: Boolean
+  task: {
+    type: Object,
+    required: true
+  }
 })
 const emit = defineEmits(['toggle','delete','update']) 
 const isEditing = ref(false)
@@ -28,12 +30,12 @@ function startEdit(){
 
   isEditing.value = true
 
-  editText.value = props.title
+  editText.value = props.task.title
 
 }
 function saveEdit(){
 
-  emit('update', editText.value)
+  emit('update',props.task.id, editText.value)
 
   isEditing.value = false
 
