@@ -1,10 +1,12 @@
 import { defineStore } from 'pinia'
-import { fetchTodos } from '@/api/todoApi'
+import {fetchTodos,createTodo,removeTodo,updateTodo} from '@/api/todoApi'
+
 
 export const useTodoStore = defineStore('todo', {
  state: () => ({
   tasks: fetchTodos(),
-  currentFilter: 'all'
+  currentFilter: 'all',
+  loading:false
 }), 
 
   getters: {
@@ -35,25 +37,88 @@ export const useTodoStore = defineStore('todo', {
   }
 },
 
- addTask (title) {
-    this.tasks.push({
-      id: Date.now(),
-      title: title,
-      completed: false
-    })
- 
-},
+async addTask(title){
 
- deleteTask (id) {
-  this.tasks = this.tasks.filter(task => task.id !== id)
+  this.loading = true
+
+  try{
+
+    const newTask = {
+      id: Date.now(),
+      title:title,
+      completed: false
+    }
+
+    const result = await createTodo(newTask)
+
+    this.tasks.push(result)
+
+  }catch(error){
+
+    console.error(error)
+
+  }finally{
+
+    this.loading = false
+
+  }
+
+},
+async deleteTask(id){
+
+  this.loading = true
+
+  try{
+
+    const deletedId = await removeTodo(id)
+
+    this.tasks = this.tasks.filter(
+      task => task.id !== deletedId
+    )
+
+  }catch(error){
+
+    console.error(error)
+
+  }finally{
+
+    this.loading = false
+
+  }
+
 },
 clearCompletedTasks() {
   this.tasks = this.tasks.filter(task => !task.completed)
 },
-updateTask(id, newTitle) {
+async updateTask(id, newTitle){
+
   const task = this.tasks.find(task => task.id === id)
-  if (task) {
-    task.title = newTitle
+
+  if (!task) return
+
+  this.loading = true
+
+  try{
+
+    const updatedTask = {
+      ...task,
+      title: newTitle
+    }
+
+    const result = await updateTodo(updatedTask)
+
+    task.title = result.title
+
+  }catch(error){
+
+    console.error(error)
+
+  }finally{
+
+    this.loading = false
+
   }
+
+}
 }}
-})
+)

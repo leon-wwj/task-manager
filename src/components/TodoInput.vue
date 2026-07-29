@@ -5,8 +5,8 @@
       placeholder="请输入任务"
     />
 
-    <button @click="add">
-      添加
+    <button @click="add" :disabled="todoStore.loading">
+       {{ todoStore.loading ? '添加中...' : '添加' }}
     </button>
   </div>
 </template>
@@ -14,6 +14,9 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useTodoStore } from '@/stores/todo.js'
+
+const todoStore = useTodoStore()
 
 
 const taskTitle = ref('')
