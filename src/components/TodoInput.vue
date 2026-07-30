@@ -6,7 +6,7 @@
     />
 
     <button @click="add" :disabled="todoStore.loading">
-       {{ todoStore.loading ? '添加中...' : '添加' }}
+       {{ todoStore.loading ? '处理中...' : '添加' }}
     </button>
   </div>
 </template>

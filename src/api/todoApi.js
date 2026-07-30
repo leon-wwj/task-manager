@@ -25,7 +25,7 @@ export function saveTodos(tasks){
   })
 
 }
-export function removeTodo(id){
+export function deleteTodo(id){
 
   return new Promise(resolve => {
     setTimeout(()=>{

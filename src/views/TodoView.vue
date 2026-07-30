@@ -7,29 +7,7 @@
       @toggle="todoStore.toggleTask"
       @delete="todoStore.deleteTask"
       @update="handleUpdate" />
- <div>
-<button 
-  :class="{ active: todoStore.currentFilter === 'all' }"
-  @click="todoStore.changeFilter('all')"
->
-  全部
-</button>
-
-<button 
-  :class="{ active: todoStore.currentFilter === 'completed' }"
-  @click="todoStore.changeFilter('completed')"
->
-  已完成
-</button>
-
-<button 
-  :class="{ active: todoStore.currentFilter === 'uncompleted' }"
-  @click="todoStore.changeFilter('uncompleted')"
->
-  未完成
-</button>
-<button @click="todoStore.clearCompletedTasks()">清除已完成任务</button>
-  </div>
+    <TodoFilter />
   </div>
 </template>
 
@@ -37,6 +15,7 @@
 import { useTodoStore } from '@/stores/todo.js'
 import TodoInput from '@/components/TodoInput.vue'
 import TodoList from '@/components/TodoList.vue'
+import TodoFilter from '@/components/TodoFilter.vue'
 
 
 const todoStore = useTodoStore()

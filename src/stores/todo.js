@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia'
-import {fetchTodos,createTodo,removeTodo,updateTodo} from '@/api/todoApi'
-
+import {fetchTodos,createTodo,deleteTodo,updateTodo} from '@/api/todoApi'
+import { handleError } from '@/utils/error'
+import { TODO_FILTER } from '@/constants'
 
 export const useTodoStore = defineStore('todo', {
  state: () => ({
   tasks: fetchTodos(),
-  currentFilter: 'all',
+  currentFilter: TODO_FILTER.ALL,
   loading:false
 }), 
 
@@ -15,10 +16,10 @@ export const useTodoStore = defineStore('todo', {
     },
    filteredTasks(state) {
   switch (state.currentFilter) {
-    case 'completed':
+    case TODO_FILTER.COMPLETED:
       return state.tasks.filter(task => task.completed)
 
-    case 'uncompleted':
+    case TODO_FILTER.UNCOMPLETED:
       return state.tasks.filter(task => !task.completed)
 
     default:
@@ -27,16 +28,18 @@ export const useTodoStore = defineStore('todo', {
 }
   },
   actions: {
-        changeFilter(filterType) {
-      this.currentFilter = filterType
+    // 筛选
+    changeFilter(filter) {
+      this.currentFilter = filter
     },
+    // 任务状态
      toggleTask(id) {
   const task = this.tasks.find(task => task.id === id)
   if (task) {
     task.completed = !task.completed
   }
 },
-
+// CRUD
 async addTask(title){
 
   this.loading = true
@@ -55,7 +58,7 @@ async addTask(title){
 
   }catch(error){
 
-    console.error(error)
+   handleError(error)
 
   }finally{
 
@@ -70,7 +73,7 @@ async deleteTask(id){
 
   try{
 
-    const deletedId = await removeTodo(id)
+    const deletedId = await deleteTodo(id)
 
     this.tasks = this.tasks.filter(
       task => task.id !== deletedId
@@ -78,7 +81,7 @@ async deleteTask(id){
 
   }catch(error){
 
-    console.error(error)
+    handleError(error)
 
   }finally{
 
@@ -87,6 +90,7 @@ async deleteTask(id){
   }
 
 },
+// 清理
 clearCompletedTasks() {
   this.tasks = this.tasks.filter(task => !task.completed)
 },
@@ -111,7 +115,7 @@ async updateTask(id, newTitle){
 
   }catch(error){
 
-    console.error(error)
+   handleError(error)
 
   }finally{
 
