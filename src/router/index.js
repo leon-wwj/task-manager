@@ -1,31 +1,44 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/TodoView.vue'
 
 const routes = [
+{
+  path:'/',
+  component:()=>import('../layouts/MainLayout.vue'),
+
+  children:[
+
+    {
+      path:'todo',
+      name:'Todo',
+      component:()=>import('../views/TodoView.vue'),
+      meta:{
+        title:'Todo任务'
+      }
+    }
+
+  ]
+},
 
   {
     path:'/login',
     name:'Login',
-    component:()=>import('../views/LoginView.vue')
-  },
+    component:()=>import('../views/LoginView.vue'),
+     meta:{
+   title:'登录'
+ }
+},
 
   {
-    path:'/todo',
-    name:'Todo',
-    component:()=>import('../views/TodoView.vue')
-  }
+  path:'/:pathMatch(.*)*',
+  name:'NotFound',
+  component:()=>import('../views/NotFoundView.vue')
+}
 
 ]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    }
-  ],
+  routes 
 })
 
 export default router
