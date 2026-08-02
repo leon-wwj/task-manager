@@ -6,6 +6,14 @@ const routes = [
   component:()=>import('../layouts/MainLayout.vue'),
 
   children:[
+      {
+      path:'',
+      name:'Home',
+      component:()=>import('../views/HomeView.vue'),
+      meta:{
+        title:'首页'
+      }
+    },
 
     {
       path:'todo',
@@ -41,4 +49,9 @@ const router = createRouter({
   routes 
 })
 
+router.beforeEach((to)=>{
+
+  console.log('进入页面:',to.path)
+
+})
 export default router

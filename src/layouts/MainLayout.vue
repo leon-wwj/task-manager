@@ -1,10 +1,14 @@
 <template>
 
-  <div>
+ <div class="layout">
 
-    <header>
-      Todo管理系统
-    </header>
+
+  <AppHeader />
+
+
+  <div class="body">
+
+    <AppSidebar />
 
 
     <main>
@@ -13,12 +17,35 @@
 
     </main>
 
-
   </div>
 
+
+</div>
 </template>
 
 
 <script setup>
 
+import AppHeader from '../components/AppHeader.vue'
+import AppSidebar from '../components/AppSidebar.vue'
+
 </script>
+
+<style scoped>
+
+.body{
+
+  display:flex;
+
+}
+
+
+main{
+
+  flex:1;
+
+  padding:20px;
+
+}
+
+</style>
