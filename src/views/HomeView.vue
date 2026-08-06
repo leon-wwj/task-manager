@@ -4,10 +4,7 @@
 
     <h1>欢迎使用 Todo 管理系统</h1>
 
-    <p>
-      这是一个 Vue3 企业化改造练习项目
-    </p>
-
+  <router-link to="/login">去登录</router-link>
   </div>
 
 </template>
@@ -16,7 +13,6 @@
 <script setup>
 
 </script>
-
 
 <style scoped>
 

@@ -16,9 +16,15 @@ import { useTodoStore } from '@/stores/todo.js'
 import TodoInput from '@/components/TodoInput.vue'
 import TodoList from '@/components/TodoList.vue'
 import TodoFilter from '@/components/TodoFilter.vue'
+import { onMounted } from 'vue'
 
 
 const todoStore = useTodoStore()
+onMounted(()=>{
+
+  todoStore.loadTasks()
+
+})
 
 function handleAddTask(title){
 

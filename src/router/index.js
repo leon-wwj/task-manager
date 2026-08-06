@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useUserStore } from '@/stores/user'
+
 
 const routes = [
 {
@@ -54,4 +56,23 @@ router.beforeEach((to)=>{
   console.log('进入页面:',to.path)
 
 })
+router.beforeEach((to)=>{
+
+
+  const userStore = useUserStore()
+
+
+  if(
+    to.path !== '/login'
+    &&
+    !userStore.token
+  ){
+
+    return '/login'
+
+  }
+
+
+})
+
 export default router

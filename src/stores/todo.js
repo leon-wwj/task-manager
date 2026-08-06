@@ -1,16 +1,22 @@
 import { defineStore } from 'pinia'
-import {fetchTodos,createTodo,deleteTodo,updateTodo} from '@/api/todoApi'
+import {
+ fetchTodos,
+ addTodo,
+ removeTodo,
+ editTodo
+} from '@/service/todoService'
 import { handleError } from '@/utils/error'
 import { TODO_FILTER } from '@/constants'
 
 export const useTodoStore = defineStore('todo', {
  state: () => ({
-  tasks: fetchTodos(),
+  tasks:[],
   currentFilter: TODO_FILTER.ALL,
   loading:false
 }), 
 
   getters: {
+ 
      completedCount(state) {
     return state.tasks.filter(task => task.completed).length
     },
@@ -28,6 +34,21 @@ export const useTodoStore = defineStore('todo', {
 }
   },
   actions: {
+       async loadTasks(){
+
+  try{
+
+    const data = await fetchTodos()
+
+    this.tasks = data
+
+  }catch(error){
+
+    handleError(error)
+
+  }
+
+},
     // 筛选
     changeFilter(filter) {
       this.currentFilter = filter
@@ -52,7 +73,7 @@ async addTask(title){
       completed: false
     }
 
-    const result = await createTodo(newTask)
+    const result = await addTodo(newTask)
 
     this.tasks.push(result)
 
@@ -73,7 +94,7 @@ async deleteTask(id){
 
   try{
 
-    const deletedId = await deleteTodo(id)
+    const deletedId = await removeTodo(id)
 
     this.tasks = this.tasks.filter(
       task => task.id !== deletedId
@@ -109,7 +130,7 @@ async updateTask(id, newTitle){
       title: newTitle
     }
 
-    const result = await updateTodo(updatedTask)
+    const result = await editTodo(updatedTask)
 
     task.title = result.title
 

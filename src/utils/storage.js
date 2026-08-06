@@ -1,22 +1,28 @@
-import { defaultTasks } from '@/mock/tasks'
-import { TODO_KEY } from '@/constants'
+// utils/storage.js
 
-export function getTasks(){
+export function setItem(key,value){
 
- const tasks = localStorage.getItem(TODO_KEY)
-
- return tasks
- ? JSON.parse(tasks)
- : defaultTasks
+  localStorage.setItem(
+    key,
+    JSON.stringify(value)
+  )
 
 }
 
 
-export function saveTasks(tasks){
+export function getItem(key){
 
- localStorage.setItem(
-  TODO_KEY,
-  JSON.stringify(tasks)
-)
+  const value = localStorage.getItem(key)
+
+  return value
+    ? JSON.parse(value)
+    : null
+
+}
+
+
+export function removeItem(key){
+
+  localStorage.removeItem(key)
 
 }
