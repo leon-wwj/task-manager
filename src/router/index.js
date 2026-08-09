@@ -53,11 +53,6 @@ const router = createRouter({
 
 router.beforeEach((to)=>{
 
-  console.log('进入页面:',to.path)
-
-})
-router.beforeEach((to)=>{
-
 
   const userStore = useUserStore()
 

@@ -40,14 +40,22 @@ const userStore = useUserStore()
 
 function handleLogin(){
 
-  userStore.login({
-    username:username.value
-  })
+ if(!username.value.trim()){
+
+  return
+
+ }
 
 
-  router.push('/todo')
+ userStore.login({
+
+  username:username.value
+
+ })
+
+
+ router.push('/')
 
 }
-
 
 </script>
