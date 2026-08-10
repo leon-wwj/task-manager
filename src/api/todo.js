@@ -1,5 +1,4 @@
 import { getTasks, saveTasks } from '@/utils/todoStorage'
-import request from '@/utils/request'
 
 
 export function getTodoList(){

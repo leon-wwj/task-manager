@@ -8,3 +8,6 @@ export const TODO_FILTER = {
   UNCOMPLETED: 'uncompleted'
 
 }
+export const USER_KEY = 'user'
+
+export const MOCK_TOKEN = 'mock-token'

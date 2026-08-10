@@ -1,5 +1,6 @@
 import axios from 'axios'
-
+import { getItem } from '@/utils/storage'
+import { USER_KEY } from '@/constants'
 
 const request = axios.create({
 
@@ -11,33 +12,45 @@ const request = axios.create({
 
 request.interceptors.request.use(
 
-  config=>{
+config=>{
+
+ const user = getItem(USER_KEY)
 
 
-    const token = localStorage.getItem('user')
+ if(user?.token){
+
+   config.headers.Authorization =
+   `Bearer ${user.token}`
+
+ }
 
 
-    if(token){
+ return config
 
-      const user = JSON.parse(token)
+},
+
+error=>{
+
+ return Promise.reject(error)
+
+}
+
+)
+
+request.interceptors.response.use(
+
+response=>{
+
+  return response.data
+
+},
 
 
-      config.headers.Authorization =
-      `Bearer ${user.token}`
+error=>{
 
-    }
+  return Promise.reject(error)
 
-
-    return config
-
-  },
-
-
-  error=>{
-
-    return Promise.reject(error)
-
-  }
+}
 
 )
 

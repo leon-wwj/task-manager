@@ -60,7 +60,7 @@ router.beforeEach((to)=>{
   if(
     to.path !== '/login'
     &&
-    !userStore.token
+    !userStore.isLogin
   ){
 
     return '/login'

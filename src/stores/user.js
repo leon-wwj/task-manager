@@ -1,6 +1,14 @@
 import { defineStore } from 'pinia'
-import { setItem,getItem,removeItem } from '../utils/storage'
+import { 
+ setItem,
+ getItem,
+ removeItem
+} from '@/utils/storage'
 
+import {
+ USER_KEY,
+ MOCK_TOKEN
+} from '@/constants'
 
 export const useUserStore = defineStore('user',{
 
@@ -12,7 +20,15 @@ export const useUserStore = defineStore('user',{
     token:''
 
   }),
+getters:{
 
+  isLogin(state){
+
+    return !!state.token
+
+  }
+
+},
 
   actions:{
 
@@ -22,10 +38,10 @@ export const useUserStore = defineStore('user',{
 
       this.username=userInfo.username
 
-      this.token='mock-token'
+      this.token=MOCK_TOKEN
 
 
-      setItem('user',{
+      setItem(USER_KEY,{
 
         username:this.username,
 
@@ -45,7 +61,7 @@ export const useUserStore = defineStore('user',{
       this.token=''
 
 
-      removeItem('user')
+      removeItem(USER_KEY)
 
 
     },
@@ -54,7 +70,7 @@ export const useUserStore = defineStore('user',{
     restoreUser(){
 
 
-      const user=getItem('user')
+      const user=getItem(USER_KEY)
 
 
       if(user){
