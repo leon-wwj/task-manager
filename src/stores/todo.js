@@ -38,7 +38,7 @@ export const useTodoStore = defineStore('todo', {
 
   try{
 
-    const data = await fetchTodos()
+    const  data = await fetchTodos()
 
     this.tasks = data
 

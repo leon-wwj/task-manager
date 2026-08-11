@@ -1,8 +1,6 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-
-import { useTodoStore } from './stores/todo'
-import { saveTodos } from '@/api/todo'
+// import '@/mock'
 
 import App from './App.vue'
 import router from './router'
@@ -15,11 +13,6 @@ const userStore = useUserStore()
 userStore.restoreUser()
 app.use(router)
 
-const todoStore = useTodoStore()
 
-todoStore.$subscribe((_,state)=>{
 
-  saveTodos(state.tasks)
-
-})
 app.mount('#app')

@@ -33,3 +33,32 @@ import { useTodoStore } from '@/stores/todo'
 const todoStore = useTodoStore()
 
 </script>
+<style scoped>
+
+button{
+  padding:6px 14px;
+  margin-right:8px;
+  border:1px solid #ddd;
+  background:#fff;
+  border-radius:6px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+
+button:hover{
+
+  border-color:#999;
+
+}
+
+
+button.active{
+
+  background:#776c6c;
+  color:#fff;
+  border-color:#4c3b3b;
+
+}
+
+</style>
