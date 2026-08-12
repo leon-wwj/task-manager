@@ -1,37 +1,28 @@
-import {
- mockGetTodos,
- mockCreateTodo,
- mockDeleteTodo,
- mockUpdateTodo
-} from '@/mock/todoMock'
-
-
 import request from '@/utils/request'
 
-
-export function getTodoList(){
+export function getTodoList() {
 
   return request.get('/todos')
 
 }
-export function createTodo(task){
-
-  return mockCreateTodo(task)
-
-}
 
 
+export function createTodo(task) {
 
-export function deleteTodo(id){
-
-  return mockDeleteTodo(id)
+  return request.post('/todos', task)
 
 }
 
 
+export function deleteTodo(id) {
 
-export function updateTodo(task){
+  return request.delete(`/todos/${id}`)
 
-  return mockUpdateTodo(task)
+}
+
+
+export function updateTodo(task) {
+
+  return request.put(`/todos/${task.id}`, task)
 
 }

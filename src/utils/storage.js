@@ -1,4 +1,3 @@
-// utils/storage.js
 
 export function setItem(key,value){
 

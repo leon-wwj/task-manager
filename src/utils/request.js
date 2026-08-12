@@ -41,7 +41,7 @@ request.interceptors.response.use(
 
 response=>{
 
-  return response.data
+  return response
 
 },
 

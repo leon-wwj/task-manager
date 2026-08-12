@@ -1,46 +1,42 @@
 import {
-  getTodoList as getTodosApi,
-  createTodo as createTodoApi,
-  deleteTodo as deleteTodoApi,
-  updateTodo as updateTodoApi
+  getTodoList,
+  createTodo,
+  deleteTodo,
+  updateTodo
 } from '@/api/todo'
 
 
+export async function fetchTodos() {
 
-export async function fetchTodos(){
-
-  const res = await getTodosApi()
+  const res = await getTodoList()
 
   return res.data
 
 }
 
 
+export async function addTodo(data) {
 
-export async function addTodo(data){
+  const res = await createTodo(data)
 
-  const res = await createTodoApi(data)
-
-  return res
-
-}
-
-
-
-export async function removeTodo(id){
-
-  const res = await deleteTodoApi(id)
-
-  return res
+  return res.data
 
 }
 
 
+export async function removeTodo(id) {
 
-export async function editTodo(task){
+  await deleteTodo(id)
 
-  const res = await updateTodoApi(task)
+  return id
 
-  return res
+}
+
+
+export async function editTodo(data) {
+
+  const res = await updateTodo(data)
+
+  return res.data
 
 }

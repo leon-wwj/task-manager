@@ -1,9 +1,10 @@
 {
-  "todos":[
+  "todos": [
     {
-      "id":1,
-      "title":"学习Vue3",
-      "completed":false
+      "id": "qw1EHGwGkwc",
+      "title": "123",
+      "completed": false
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

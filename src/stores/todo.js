@@ -112,8 +112,34 @@ async deleteTask(id){
 
 },
 // 清理
-clearCompletedTasks() {
-  this.tasks = this.tasks.filter(task => !task.completed)
+async clearCompletedTasks() {
+
+  this.loading = true
+
+  try {
+
+    const completedTasks =
+      this.tasks.filter(task => task.completed)
+
+    await Promise.all(
+      completedTasks.map(task =>
+        removeTodo(task.id)
+      )
+    )
+
+    this.tasks =
+      this.tasks.filter(task => !task.completed)
+
+  } catch (error) {
+
+    handleError(error)
+
+  } finally {
+
+    this.loading = false
+
+  }
+
 },
 async updateTask(id, newTitle){
 
