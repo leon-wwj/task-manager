@@ -38,26 +38,28 @@ const todoStore = useTodoStore()
 button{
   padding:6px 14px;
   margin-right:8px;
-  border:1px solid #ddd;
+  border:1px solid #d8d8dc;
   background:#fff;
-  border-radius:6px;
+  color:#555;
+  border-radius:8px;
   cursor:pointer;
-  transition:0.2s;
+  transition:0.15s;
 }
 
 
 button:hover{
 
   border-color:#999;
+  color:#1d1d1f;
 
 }
 
 
 button.active{
 
-  background:#776c6c;
+  background:#1d1d1f;
   color:#fff;
-  border-color:#4c3b3b;
+  border-color:#1d1d1f;
 
 }
 

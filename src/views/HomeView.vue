@@ -16,13 +16,15 @@
 <style scoped>
 
 .home{
-  padding:40px;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px;
 }
 
 h1{
-  font-size:28px;
-  font-weight:600;
-  margin-bottom:16px;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 16px;
 }
 
 p{

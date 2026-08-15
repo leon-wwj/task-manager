@@ -44,26 +44,24 @@ function handleUpdate(id,newTitle){
 
 <style scoped>
 
+div {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 8px 0;
+}
+
 h1 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 6px;
+  font-size: 24px;
+  font-weight: 600;
 }
 
-button {
-  padding: 5px 12px;
-  border: 1px solid #d0d0d0;
-  border-radius: 6px;
-  background-color: #fafafa;
-  color: #333;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.2s;
-  margin-right: 10px;
-}
-
-button:hover {
-  background-color: #f0f0f0;
-  border-color: #aaa;
+p {
+  text-align: center;
+  color: #999;
+  font-size: 13px;
+  margin-bottom: 24px;
 }
 
 </style>

@@ -43,40 +43,49 @@ function saveEdit(){
 </script>
 <style scoped>
 .task-item {
-  padding: 10px;
-  border: 1px solid #ccc;
+  padding: 12px 16px;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  background: #fff;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 10px;
+  transition: box-shadow 0.15s, border-color 0.15s;
 }
 
 .task-item:hover {
-  background-color: #f5f5f5;
+  border-color: #d0d0d4;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .task-item input {
   padding: 6px 10px;
-  border: 1px solid #999;
-  border-radius: 5px;
+  border: 1px solid #d8d8dc;
+  border-radius: 6px;
   outline: none;
   font-size: 14px;
 }
 
 .task-item input:focus {
-  border-color: #999;
+  border-color: #1d1d1f;
 }
 
 .task-item button {
-  padding: 5px 10px;
-  border: 1px solid #aaa;
-  border-radius: 5px;
-  background-color: white;
+  padding: 5px 12px;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  background: #fff;
+  color: #666;
+  font-size: 13px;
   cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
 
 .task-item button:hover {
-  background-color: #eee;
+  background: #f5f5f7;
+  border-color: #ccc;
+  color: #1d1d1f;
 }
 </style >

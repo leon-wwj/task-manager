@@ -48,63 +48,107 @@ function handleLogout(){
 
 <style scoped>
 
-.sidebar{
+.sidebar {
 
-  width:120px;
+  width: 200px;
 
-  min-height:calc(100vh - 60px);
+  padding: 20px 12px;
 
-  padding:16px 10px;
+  background: #fff;
 
-  background:#fafafa;
-
-  border-right:1px solid #eee;
+  border-right: 1px solid #e5e5e5;
 
 }
 
 
-nav{
+nav {
 
-  display:flex;
+  display: flex;
 
-  flex-direction:column;
+  flex-direction: column;
 
-  gap:8px;
-
-}
-
-
-a{
-
-  padding:8px 10px;
-
-  color:#555;
-
-  text-decoration:none;
-
-  border-radius:6px;
-
-  font-size:14px;
+  gap: 4px;
 
 }
 
 
-a:hover{
+a {
 
-  background:#f0f0f0;
+  padding: 10px 14px;
+
+  color: #555;
+
+  text-decoration: none;
+
+  border-radius: 8px;
+
+  font-size: 14px;
+
+  transition: background 0.15s, color 0.15s;
 
 }
 
 
-.router-link-active{
+a:hover {
 
-  background:#eaeaea;
+  background: #f2f2f4;
 
-  color:#222;
-
-  font-weight:600;
+  color: #1d1d1f;
 
 }
 
+
+.router-link-active {
+
+  background: #1d1d1f;
+
+  color: #fff;
+
+  font-weight: 500;
+
+}
+
+
+.router-link-active:hover {
+
+  background: #1d1d1f;
+
+  color: #fff;
+
+}
+
+
+button {
+
+  margin-top: 8px;
+
+  padding: 10px 14px;
+
+  border: none;
+
+  background: none;
+
+  color: #999;
+
+  font-size: 14px;
+
+  text-align: left;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  transition: background 0.15s, color 0.15s;
+
+}
+
+
+button:hover {
+
+  background: #f2f2f4;
+
+  color: #d33;
+
+}
 
 </style>
