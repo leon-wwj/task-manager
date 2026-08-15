@@ -2,11 +2,12 @@ import axios from 'axios'
 import { getItem } from '@/utils/storage'
 import { USER_KEY } from '@/constants'
 
+// 环境变量指定后端地址；本地默认 json-server，线上（Vercel）不设置则留空触发降级
 const request = axios.create({
 
-  baseURL:'http://localhost:3000',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000',
 
-  timeout:5000
+  timeout: 5000
 
 })
 
