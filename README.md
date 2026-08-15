@@ -71,7 +71,13 @@ npm run test
 
 ## 📸 截图
 
-> TODO：待补充项目截图
+| 登录页 | 任务列表 |
+|---|---|
+| ![登录页](docs/screenshots/01-login.png) | ![任务列表](docs/screenshots/02-todo.png) |
+
+| 添加任务 | 刷新后数据持久化 |
+|---|---|
+| ![添加任务](docs/screenshots/03-tasks.png) | ![数据持久化](docs/screenshots/04-persist.png) |
 
 ---
 
