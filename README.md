@@ -69,6 +69,58 @@ VITE_USE_LOCAL_STORAGE=true
 npm run test
 ```
 
+## 🧠 技术难点与收获
+
+### 1. 双存储模式（API 优先，localStorage 降级）
+
+线上部署（静态托管）没有后端可用，但项目又不能因此"瘫痪"。解决方案是在 service 层做了一层抽象：
+
+```js
+// service/todoService.js
+const useLocalStorage = import.meta.env.VITE_USE_LOCAL_STORAGE === 'true'
+
+export async function fetchTodos() {
+  if (useLocalStorage) return readLocalTodos()   // 本地存储模式
+  const res = await getTodoList()                 // API 模式
+  return res.data
+}
+```
+
+- **好处**：业务层（store）完全感知不到存储方式的差异，切换模式只改一个环境变量
+- **收获**：理解了"接口抽象"的意义——上层依赖接口而非实现，这也是后端/微服务设计里的核心思想
+
+### 2. Axios 请求/响应拦截器
+
+统一在 request 层处理"带 token"和"错误收集"，业务代码不用重复写：
+
+```js
+request.interceptors.request.use(config => {
+  const user = getItem(USER_KEY)
+  if (user?.token) config.headers.Authorization = `Bearer ${user.token}`
+  return config
+})
+```
+
+### 3. 四层职责分离
+
+```
+Vue 组件 → stores（Pinia）→ service（业务）→ api（请求）→ Axios
+```
+
+每层只做一件事：组件管 UI，store 管状态，service 管数据来源，api 管 HTTP。改接口契约时只需要动 api 层，不影响上层。
+
+### 4. SPA 部署的坑：History 路由刷新 404
+
+部署到静态托管后，直接访问 `/todo` 会 404（服务器找不到这个"文件"）。解决方案是 `vercel.json` 的 rewrites 把所有路径回退到 `index.html`，由前端路由接管：
+
+```json
+{ "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }] }
+```
+
+### 5. 单元测试
+
+用 Vitest 给 store 的 getters/actions 和工具函数写测试（9 个用例），覆盖筛选逻辑、完成统计、localStorage 读写等纯逻辑，不依赖 DOM。
+
 ## 📸 截图
 
 | 登录页 | 任务列表 |
