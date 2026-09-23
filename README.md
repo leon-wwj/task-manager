@@ -1,6 +1,6 @@
 # Task Manager（任务管理系统）
 
-一个基于 **Vue 3** 的前后端分离任务管理应用，覆盖登录鉴权、任务 CRUD、筛选与本地持久化。用于练习 Vue 工程化、HTTP 分层与部署流程。
+一个基于 **Vue 3 + Vite + Pinia** 的任务管理应用：登录鉴权、任务 CRUD、筛选与统计。请求按「组件 → store → service → api」四层组织，支持 API / localStorage 双存储，附带 Vitest 单元测试。
 
 ## ✨ 功能
 
@@ -69,6 +69,8 @@ VITE_USE_LOCAL_STORAGE=true
 npm run test
 ```
 
+Vitest + happy-dom，17 个用例，覆盖 store 状态流转（筛选、统计、完成状态持久化与失败回滚）、localStorage 工具、service 双存储逻辑，不依赖网络与 DOM 渲染。
+
 ## 🧠 技术难点与收获
 
 ### 1. 双存储模式（API 优先，localStorage 降级）
@@ -117,9 +119,32 @@ Vue 组件 → stores（Pinia）→ service（业务）→ api（请求）→ Ax
 { "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }] }
 ```
 
-### 5. 单元测试
+### 5. 完成状态的乐观更新与失败回滚
 
-用 Vitest 给 store 的 getters/actions 和工具函数写测试（9 个用例），覆盖筛选逻辑、完成统计、localStorage 读写等纯逻辑，不依赖 DOM。
+点击任务切换完成状态时，先改本地状态让 UI 立即响应，再异步写回存储；写入失败则回滚：
+
+```js
+async toggleTask(id) {
+  const task = this.tasks.find(item => item.id === id)
+  if (!task) return
+
+  const nextCompleted = !task.completed
+  task.completed = nextCompleted          // 先更新 UI
+
+  try {
+    await editTodo({ ...task, completed: nextCompleted })
+  } catch (error) {
+    task.completed = !nextCompleted       // 失败回滚
+    handleError(error)
+  }
+}
+```
+
+**收获**：乐观更新能避免"点一下等一会儿"的迟滞感，代价是要处理失败回滚——这类"先响应、再补偿"的思路在真实项目里很常见。
+
+### 6. 单元测试
+
+用 Vitest 给 store 的 getters/actions、工具函数和 service 层写测试（17 个用例），覆盖筛选逻辑、完成统计、localStorage 读写、双存储分支与失败回滚，不依赖 DOM 与网络（service 通过 `vi.mock` 隔离）。
 
 ## 📸 截图
 

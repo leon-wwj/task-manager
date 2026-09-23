@@ -53,12 +53,31 @@ export const useTodoStore = defineStore('todo', {
     changeFilter(filter) {
       this.currentFilter = filter
     },
-    // 任务状态
-     toggleTask(id) {
+    // 任务状态（先更新 UI，再同步存储；失败回滚）
+     async toggleTask(id) {
   const task = this.tasks.find(task => task.id === id)
-  if (task) {
-    task.completed = !task.completed
+
+  if (!task) return
+
+  const nextCompleted = !task.completed
+
+  task.completed = nextCompleted
+
+  try{
+
+    await editTodo({
+      ...task,
+      completed: nextCompleted
+    })
+
+  }catch(error){
+
+    task.completed = !nextCompleted
+
+    handleError(error)
+
   }
+
 },
 // CRUD
 async addTask(title){
