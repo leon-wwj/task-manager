@@ -2,6 +2,7 @@
 import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
+import { fileToAvatar } from '@/utils/image'
 
 const AVATARS = ['🧑‍💻', '🎯', '🌱', '⭐', '🚀', '☕']
 
@@ -13,10 +14,16 @@ const editingName = ref(false)
 const draftName = ref('')
 const rootEl = ref(null)
 const nameInput = ref(null)
+const fileInput = ref(null)
+const uploadError = ref('')
+const uploading = ref(false)
+
+// 当前头像是上传的图片还是 emoji / 首字母
+const isImageAvatar = computed(() => userStore.avatar.startsWith('data:image'))
 
 // 没选过头像时，用用户名首字母兜底
 const avatarText = computed(() => {
-  if (userStore.avatar) return userStore.avatar
+  if (userStore.avatar && !isImageAvatar.value) return userStore.avatar
   return userStore.username ? userStore.username.charAt(0).toUpperCase() : '👤'
 })
 
@@ -43,6 +50,32 @@ function saveName() {
 
 function pickAvatar(emoji) {
   userStore.setAvatar(emoji)
+  uploadError.value = ''
+}
+
+function triggerUpload() {
+  fileInput.value?.click()
+}
+
+async function onFileChange(event) {
+  const file = event.target?.files?.[0]
+
+  // 允许重复选择同一个文件
+  if (event.target) event.target.value = ''
+
+  if (!file) return
+
+  uploading.value = true
+  uploadError.value = ''
+
+  try {
+    const dataUrl = await fileToAvatar(file)
+    userStore.setAvatar(dataUrl)
+  } catch (error) {
+    uploadError.value = error.message || '图片处理失败，换一张试试'
+  } finally {
+    uploading.value = false
+  }
 }
 
 function handleLogout() {
@@ -86,7 +119,10 @@ onUnmounted(() => {
       :aria-expanded="open"
       @click.stop="toggle"
     >
-      <span class="avatar">{{ avatarText }}</span>
+      <span class="avatar">
+        <img v-if="isImageAvatar" :src="userStore.avatar" alt="头像" />
+        <template v-else>{{ avatarText }}</template>
+      </span>
       <span class="name">{{ userStore.username }}</span>
       <span class="caret">▾</span>
     </button>
@@ -112,6 +148,7 @@ onUnmounted(() => {
 
       <div class="avatar-picker">
         <div class="label">头像</div>
+
         <div class="avatars">
           <button
             v-for="emoji in AVATARS"
@@ -124,7 +161,28 @@ onUnmounted(() => {
           >
             {{ emoji }}
           </button>
+
+          <button
+            type="button"
+            class="avatar-option is-upload"
+            :class="{ active: isImageAvatar }"
+            :disabled="uploading"
+            title="上传自己的图片"
+            @click="triggerUpload"
+          >
+            {{ uploading ? '…' : '＋' }}
+          </button>
         </div>
+
+        <input
+          ref="fileInput"
+          class="file-input"
+          type="file"
+          accept="image/*"
+          @change="onFileChange"
+        />
+
+        <p v-if="uploadError" class="hint">{{ uploadError }}</p>
       </div>
 
       <div class="divider"></div>
@@ -166,10 +224,17 @@ onUnmounted(() => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   background: #1d1d1f;
   color: #fff;
   font-size: 14px;
   line-height: 1;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .name {
@@ -292,6 +357,22 @@ onUnmounted(() => {
 .avatar-option.active {
   border-color: #1d1d1f;
   background: #f2f2f4;
+}
+
+.avatar-option.is-upload {
+  color: #666;
+  font-size: 18px;
+}
+
+.file-input {
+  display: none;
+}
+
+.hint {
+  margin: 8px 0 0;
+  color: #d33;
+  font-size: 12px;
+  line-height: 1.5;
 }
 
 .divider {

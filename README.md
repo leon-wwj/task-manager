@@ -5,7 +5,7 @@
 ## ✨ 功能
 
 - 🔐 登录 / 退出（本地 mock 鉴权，token 存 localStorage）
-- 👤 右上角用户菜单：显示当前用户，可改用户名、换头像、退出登录
+- 👤 右上角用户菜单：显示当前用户，可改用户名、换头像（内置 emoji 或上传自选图片）、退出登录
 - ✅ 任务增删改查（添加、删除、编辑、完成状态切换）
 - 🔍 任务筛选（全部 / 已完成 / 未完成）
 - 🧹 一键清除已完成任务
@@ -72,7 +72,7 @@ npm run build:static     # 读取 .env.static → VITE_USE_LOCAL_STORAGE=true
 npm run test
 ```
 
-Vitest + happy-dom，24 个用例，覆盖 store 状态流转（筛选、统计、完成状态持久化与失败回滚）、用户态（改名、头像、登出）、localStorage 工具、service 双存储逻辑，不依赖网络与 DOM 渲染。
+Vitest + happy-dom，27 个用例，覆盖 store 状态流转（筛选、统计、完成状态持久化与失败回滚）、用户态（改名、头像、登出）、头像图片校验、localStorage 工具、service 双存储逻辑，不依赖网络与 DOM 渲染。
 
 ## 🧠 技术难点与收获
 
@@ -147,7 +147,7 @@ async toggleTask(id) {
 
 ### 6. 单元测试
 
-用 Vitest 给 store 的 getters/actions、工具函数和 service 层写测试（24 个用例），覆盖筛选逻辑、完成统计、localStorage 读写、双存储分支、完成状态回滚与用户态（改名 / 头像 / 登出），不依赖 DOM 与网络（service 通过 `vi.mock` 隔离）。
+用 Vitest 给 store 的 getters/actions、工具函数和 service 层写测试（27 个用例），覆盖筛选逻辑、完成统计、localStorage 读写、双存储分支、完成状态回滚、用户态（改名 / 头像 / 登出）与头像图片校验，不依赖 DOM 与网络（service 通过 `vi.mock` 隔离）。
 
 ## 📸 截图
 

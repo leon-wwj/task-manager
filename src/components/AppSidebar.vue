@@ -12,9 +12,6 @@
       <router-link to="/todo">
         Todo任务
       </router-link>
-      <button @click="handleLogout">
-        退出登录
-      </button>
 
     </nav>
 
@@ -24,24 +21,6 @@
 
 
 <script setup>
-
-import { useRouter } from 'vue-router'
-import { useUserStore } from '@/stores/user'
-
-
-const router = useRouter()
-
-const userStore = useUserStore()
-
-
-
-function handleLogout(){
-
-  userStore.logout()
-
-  router.push('/login')
-
-}
 
 </script>
 
@@ -114,40 +93,6 @@ a:hover {
   background: #1d1d1f;
 
   color: #fff;
-
-}
-
-
-button {
-
-  margin-top: 8px;
-
-  padding: 10px 14px;
-
-  border: none;
-
-  background: none;
-
-  color: #999;
-
-  font-size: 14px;
-
-  text-align: left;
-
-  border-radius: 8px;
-
-  cursor: pointer;
-
-  transition: background 0.15s, color 0.15s;
-
-}
-
-
-button:hover {
-
-  background: #f2f2f4;
-
-  color: #d33;
 
 }
 
