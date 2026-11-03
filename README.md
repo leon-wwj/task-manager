@@ -56,13 +56,15 @@ npm run dev
 
 ## ☁️ 部署说明
 
-线上部署（如 Vercel）时，由于没有后端，通过环境变量切换到本地存储模式：
+**在线演示**：https://leon-wwj.github.io/task-manager/ （GitHub Pages，静态托管）
 
-```
-VITE_USE_LOCAL_STORAGE=true
+静态托管没有后端，构建时切到 localStorage 存储模式：
+
+```bash
+npm run build:static     # 读取 .env.static → VITE_USE_LOCAL_STORAGE=true
 ```
 
-配置后，任务数据会持久化到浏览器 localStorage，无需后端即可完整使用。
+构建产物 `dist/` 推送到 `gh-pages` 分支即可更新线上。路由使用 hash 模式，刷新不会 404。
 
 ## 🧪 测试
 
