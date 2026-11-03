@@ -2,7 +2,9 @@
 
   <header>
 
-    后台管理系统
+    <span class="brand">后台管理系统</span>
+
+    <UserMenu />
 
   </header>
 
@@ -11,14 +13,24 @@
 
 <script setup>
 
+import UserMenu from './UserMenu.vue'
+
 </script>
+
 
 <style scoped>
 
 header {
-  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 24px;
   background: #fff;
   border-bottom: 1px solid #e5e5e5;
+}
+
+.brand {
   font-size: 16px;
   font-weight: 600;
   color: #1d1d1f;
