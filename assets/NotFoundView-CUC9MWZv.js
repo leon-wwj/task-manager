@@ -1,0 +1,1 @@
+import{a as e,c as t,t as n,y as r}from"./_plugin-vue_export-helper-DfSC0GuF.js";var i={};function a(n,i){return r(),t(`div`,null,[...i[0]||=[e(`h1`,null,`404`,-1),e(`p`,null,`页面不存在`,-1)]])}var o=n(i,[[`render`,a],[`__scopeId`,`data-v-6a5a7131`]]);export{o as default};

@@ -1,0 +1,1 @@
+import{a as e,c as t,t as n,y as r}from"./_plugin-vue_export-helper-DfSC0GuF.js";var i={},a={class:`home`};function o(n,i){return r(),t(`div`,a,[...i[0]||=[e(`h1`,null,`欢迎使用 Todo 管理系统`,-1)]])}var s=n(i,[[`render`,o],[`__scopeId`,`data-v-12e937dc`]]);export{s as default};
